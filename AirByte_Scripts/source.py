@@ -1,6 +1,7 @@
 # -- import statments -- #
 
 import requests
+import json
 
 # -- Airbyte API URLS -- #
 
@@ -9,16 +10,19 @@ AIRBYTE_API = "http://localhost:8000/api/v1"
 
 # -- Main Code -- #
 
-def create_google_web_fonts_source(source_name: str, api_key: dict, source_definition: str, workspace: str, token: str):
+def create_google_sheets_source(source_name: str, spreadsheet_id: str, auth_type: str, credentials: dict, source_definition: str, workspace: str, token: str):
     url = AIRBYTE_API + "/sources/create"
 
     payload = {
-        "sourceDefinitionId": source_definition,
+        "name": f"Google Sheets - {source_name}",
         "workspaceId": workspace,
-        "connectionConfiguration":{
-            "api_key": api_key
-        },
-        "name": "Google Web Fonts " + source_name
+        "sourceDefinitionId": source_definition,
+        "connectionConfiguration": {
+            "spreadsheet_id": spreadsheet_id,
+            "credentials": {
+                'auth_type': auth_type,
+                "service_account_info": str(credentials)}
+        }
     }
 
     headers = {
@@ -32,7 +36,8 @@ def create_google_web_fonts_source(source_name: str, api_key: dict, source_defin
         # print(response.json())
         response.raise_for_status()
 
-        print(f"Source for Google Web Font - {source_name} successfully made")
+        print(f"Source for Google Sheets - {source_name} source successfully made")
     
     except Exception as e:
+        print(response.text)
         print(f"{e}")
