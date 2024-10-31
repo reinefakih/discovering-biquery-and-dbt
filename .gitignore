@@ -1,0 +1,5 @@
+.venv
+.env
+secret
+secret/*
+__pycache__
