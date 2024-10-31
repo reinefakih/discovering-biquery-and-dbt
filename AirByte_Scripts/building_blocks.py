@@ -71,3 +71,27 @@ def get_source_definition(source_name: str, token: str) -> str:
     except Exception as e:
         print(e)
         return ""
+
+def get_dest_definition(dest_name: str, token: str) -> str:
+
+    dest_def_url = AIRBYTE_API + "/destination_definitions/list" 
+
+    headers = {
+        "accept": "application/json",
+        "Content-Type" : "application/json",
+        "authorization" : "Bearer " + token
+    } 
+    
+    try:
+        dest_def_response = requests.post(dest_def_url, headers=headers)
+        dest_def_response.raise_for_status()
+        
+        for destination_def in dest_def_response.json()['destinationDefinitions']:
+            if dest_name.lower() in destination_def['name'].lower():
+                return destination_def['destinationDefinitionId']
+            
+        raise Exception("destination definition not found!")
+    
+    except Exception as e:
+        print(e)
+        return ""
