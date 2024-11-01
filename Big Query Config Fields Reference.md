@@ -37,6 +37,8 @@
 
 ## Advanced Parameters:
 
+> These following fields are optional fields
+
 | Field                                                   | Type    | Property Name                   | Defaults         |
 | ------------------------------------------------------- | ------- | ------------------------------- | ---------------- |
 | Transformation Query Run Type                           | String  | transformation_priority         | interactive      |
