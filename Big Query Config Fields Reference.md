@@ -37,11 +37,10 @@
 
 ## Advanced Parameters:
 
-| Field                             | Type | Property Name |
-| --------------------------------- | ---- | ------------- |
-| Transformation Query Run Type     |      |               |
-| Google BigQuery Client Chunk Size |      |               |
-| Raw Table Dataset Name            |      |               |
-| Disable Final Tables              |      |               |
+| Field                                                   | Type    | Property Name                   | Defaults         |
+| ------------------------------------------------------- | ------- | ------------------------------- | ---------------- |
+| Transformation Query Run Type                           | String  | transformation_priority         | interactive      |
+| Google BigQuery Client Chunk Size <br>(MIN=1, MAX = 15) | Integer | big_query_client_buffer_size_mb | 15               |
+| Raw Table Dataset Name                                  | String  | raw_data_dataset                | airbyte_internal |
+| Disable Final Tables                                    | Boolean | disable_type_dedupe             | False            |
 
-(will try to figure out the Advanced Parameters later on)
