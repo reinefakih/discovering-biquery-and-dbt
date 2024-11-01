@@ -9,7 +9,7 @@ AIRBYTE_PUBLIC_API = "http://localhost:8000/api/public/v1"
 AIRBYTE_API = "http://localhost:8000/api/v1"
 
 # -- Main Code -- #
-def create_mysql_dest(dest_definition: str, workspace: str, name: str, project_id, token: str):
+def create_BigQuery_dest(dest_definition: str, workspace: str, name: str, project_id: str, dataset_id: str, auth_type:str, credentials: dict,token: str):
 
     url = AIRBYTE_API + "/destinations/create"
 
@@ -18,7 +18,13 @@ def create_mysql_dest(dest_definition: str, workspace: str, name: str, project_i
         "workspaceId": workspace,
 
         "connectionConfiguration": {
-            "project_id": project_id
+            "project_id": project_id,
+            "dataset_id": dataset_id,
+            "dataset_location": "US",
+            "loading_method": {"method": "Standard"},
+            "credentials": {
+                'auth_type': auth_type,
+                "service_account_info": str(credentials)}
         },
 
         "name": f"BigQuery - {name}"}
@@ -37,4 +43,5 @@ def create_mysql_dest(dest_definition: str, workspace: str, name: str, project_i
         print(f"Destination for BigQuery successfully made")
     
     except Exception as e:
+        print(response.text)
         print(f"{e}")
